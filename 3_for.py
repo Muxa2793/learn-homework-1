@@ -11,11 +11,21 @@
 """
 
 def main():
-    """
-    Эта функция вызывается автоматически при запуске скрипта в консоли
-    В ней надо заменить pass на ваш код
-    """
-    pass
+
+  school_class_scores = [
+      {'school_class': '4a', 'scores': [3, 4, 4, 5, 2]},
+      {'school_class': '4b', 'scores': [2, 5, 2, 3, 4]}
+  ]
+
+  scores_sum_avg = 0
+  for scores in school_class_scores:
+    scores_sum_avg += sum(scores['scores'])/len(scores['scores'])
+
+  print(f'Средний балл по всей школе: {round(scores_sum_avg/len(school_class_scores),1)}')
+
+  print('Средний балл по классам:')
+  for average_score in school_class_scores:
+    print(sum(average_score['scores'])/len(average_score['scores']))
     
 if __name__ == "__main__":
     main()
