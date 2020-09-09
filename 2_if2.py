@@ -16,19 +16,24 @@
 """
 
 def comparing_strings(str_1, str_2):
-  if type(str_1) != str or type(str_2) != str:
-    return 0
-  if str_1 == str_2:
-    return 1
-  if str_1 != str_2 and len(str_1) > len(str_2) and 'learn' != str_2:
-    return 2
-  if str_1 != str_2 and 'learn' in str_2:
-    return 3
+  if not isinstance(str_1, str) or not isinstance(str_1, str):
+    if not isinstance(str_1, str):
+      return 0
+    elif not isinstance(str_2, str):
+      return 0
 
+  elif str_1 == str_2:
+    return 1
+
+  elif len(str_1) > len(str_2) and str_1 != str_2:
+    if 'learn' in str_2:
+      return 3
+    else:
+      return 2
 
 def main():
-  print(comparing_strings(42, 'Это строка'))
-  print(comparing_strings('Это строка ', 'Это строка '))
+  print(comparing_strings(12, '12'))
+  print(comparing_strings('Это строка', 'Это строка'))
   print(comparing_strings('Эта строка длинее', 'Этой строки'))
   print(comparing_strings('Python', 'learn'))
     
