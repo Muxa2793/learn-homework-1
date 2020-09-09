@@ -15,12 +15,23 @@
 
 """
 
+def str_func(str_1, str_2):
+  if type(str_1) != str or type(str_2) != str:
+    return 0
+  if str_1 == str_2:
+    return 1
+  if str_1 != str_2 and len(str_1) > len(str_2) and 'learn' != str_2:
+    return 2
+  if str_1 != str_2 and 'learn' in str_2:
+    return 3
+
+
 def main():
-    """
-    Эта функция вызывается автоматически при запуске скрипта в консоли
-    В ней надо заменить pass на ваш код
-    """
-    pass
+  print(str_func(42, 'Это строка'))
+  print(str_func('Это строка ', 'Это строка '))
+  print(str_func('Эта строка длинее', 'Этой строки'))
+  print(str_func('Python', 'learn'))
     
+
 if __name__ == "__main__":
     main()
