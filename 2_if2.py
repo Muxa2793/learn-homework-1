@@ -15,6 +15,7 @@
 
 """
 
+
 def comparing_strings(str_1, str_2):
   if type(str_1) != str or type(str_2) != str:
     return 0
