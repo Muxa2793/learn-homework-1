@@ -11,26 +11,29 @@
 * Если строки разные и первая длиннее, вернуть 2
 * Если строки разные и вторая строка 'learn', возвращает 3
 * Вызвать функцию несколько раз, передавая ей разные праметры 
-  и выводя на экран результаты
+  и выводя на экран результаты   
 
 """
 
-def str_func(str_1, str_2):
-  if type(str_1) != str or type(str_2) != str:
-    return 0
-  if str_1 == str_2:
-    return 1
-  if str_1 != str_2 and len(str_1) > len(str_2) and 'learn' != str_2:
-    return 2
-  if str_1 != str_2 and 'learn' in str_2:
-    return 3
 
+def comparing_strings(str_1, str_2):
+  if not isinstance(str_1, str) and not isinstance(str_2, str):
+    return 0
+
+  elif str_1 == str_2:
+    return 1
+
+  elif len(str_1) > len(str_2) and str_1 != str_2:
+    if 'learn' == str_2:
+      return 3
+    else:
+      return 2
 
 def main():
-  print(str_func(42, 'Это строка'))
-  print(str_func('Это строка ', 'Это строка '))
-  print(str_func('Эта строка длинее', 'Этой строки'))
-  print(str_func('Python', 'learn'))
+  print(comparing_strings(12, 22))
+  print(comparing_strings('Это строка', 'Это строка'))
+  print(comparing_strings('Эта строка длинее', 'Этой строки'))
+  print(comparing_strings('Python', 'learn'))
     
 
 if __name__ == "__main__":
