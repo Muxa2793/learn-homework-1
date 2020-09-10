@@ -23,9 +23,11 @@ def main():
 
   print(f'Средний балл по всей школе: {round(scores_sum_avg/len(school_class_scores),1)}')
 
-  print('Средний балл по классам:')
+  print('\nСредний балл по классам:')
   for average_score in school_class_scores:
-    print(sum(average_score['scores'])/len(average_score['scores']))
-    
+    school_class = average_score['school_class']
+    school_class_avg = sum(average_score['scores'])/len(average_score['scores'])
+    print(f'Средний балл {school_class} класса: {school_class_avg}')
+
 if __name__ == "__main__":
     main()
