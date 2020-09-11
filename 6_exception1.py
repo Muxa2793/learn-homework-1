@@ -19,21 +19,13 @@ def ask_user():
   
   while True:
     try:
-      user_say = input('Программа: Как дела?\nПользователь: ')
-      user_say = user_say.lower()
-      if user_say == 'хорошо':     
-        print(
-          'Программа: Это отлично! Спроси меня что-нибудь.',
-          'Например: "Как дела?" или "Что делаешь?"',
-          '\nЧтобы закончить нажми "Ctrl+с".'
-        )
-        while True:
-          user_say = input('Пользователь: ')
-          user_say = user_say.lower()
-          if 'как дела' in user_say:
-            print(f"Программа: {ASK_QUESTION['как дела']}\nПрограмма: Спроси ещё что-нибудь")
-          elif 'что делаешь' in user_say:
-            print(f"Программа: {ASK_QUESTION['что делаешь']}\nПрограмма: Спроси ещё что-нибудь")
+      while True:   
+        user_say = input('Программа: Спроси меня что-нибудь. Например: "Как дела?" или "Что делаешь?"\nПользователь:')
+        user_say = user_say.lower()
+        if 'как дела' in user_say:
+          print(f"Программа: {ASK_QUESTION['как дела']}")
+        elif 'что делаешь' in user_say:
+          print(f"Программа: {ASK_QUESTION['что делаешь']}")
     except KeyboardInterrupt:
       print('\nПока!')
       break
