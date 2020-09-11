@@ -15,11 +15,23 @@
     
 """
 
-def ask_user():
-    """
-    Замените pass на ваш код
-    """
-    pass
-    
+def ask_user_dict():
+  
+  ASK_QUESTION = {
+    'как дела': 'Хорошо',
+    'что делаешь': 'Программирую'
+  }
+  
+  while True:   
+    user_say = input('Программа: Спроси меня что-нибудь. Например: "Как дела?" или "Что делаешь?"\nПользователь:')
+    user_say = user_say.lower()
+    if 'как дела' in user_say:
+      print(f"Программа: {ASK_QUESTION['как дела']}")
+    elif 'что делаешь' in user_say:
+      print(f"Программа: {ASK_QUESTION['что делаешь']}")
+    elif user_say == 'пока':
+      print(f'Программа: До свидания. Надеюсь ещё увидимся!')
+      break
+     
 if __name__ == "__main__":
-    ask_user()
+    ask_user_dict()
