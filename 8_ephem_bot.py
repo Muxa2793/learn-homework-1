@@ -12,47 +12,62 @@
   бота отвечать, в каком созвездии сегодня находится планета.
 
 """
+
+import datetime
+import ephem
 import logging
+import settings
+from telegram import ReplyKeyboardMarkup
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, RegexHandler
 
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+PROXY = {'proxy_url': settings.PROXY_URL, 'urllib3_proxy_kwargs': {'username': settings.PROXY_USERNAME, 'password': settings.PROXY_PASSWORD}}
 
-logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO,
-                    filename='bot.log'
-)
+logging.basicConfig(filename='bot.log', level=logging.INFO)
 
+def greet_user(update,context):
+  logging.info('Вызван /start')
+  update.message.reply_text(
+    'Привет, пользователь! Ты вызвал команду /start.\n'
+    'Набери /planet <название_планеты>, чтобы узнать в каком созвездии она находится.\n'
+    'Доступные планеты: Марс, Венера, Юпитер.'
+  )
 
-PROXY = {
-    'proxy_url': 'socks5://t1.learn.python.ru:1080',
-    'urllib3_proxy_kwargs': {
-        'username': 'learn', 
-        'password': 'python'
-    }
-}
-
-
-def greet_user(bot, update):
-    text = 'Вызван /start'
-    print(text)
-    update.message.reply_text(text)
-
-
-def talk_to_me(bot, update):
-    user_text = update.message.text 
-    print(user_text)
-    update.message.reply_text(user_text)
- 
+def planet(update, context):
+    print(context.args)
+    logging.info(context.args)
+    if context.args[0].lower() == 'марс':
+        logging.info('вызвана команда /planet Марс')
+        now = datetime.datetime.now()
+        mars = ephem.Mars(now)
+        stars = ephem.constellation(mars)
+        star_planet = f'Сегодняшняя дата {now.strftime("%d-%m-%Y %H:%M")}.\nПланета Марс находится в созвездии {stars[1]}'
+        update.message.reply_text(star_planet)
+    elif context.args[0].lower() == 'юпитер':
+        logging.info('вызвана команда /planet Юпитер')
+        now = datetime.datetime.now()
+        jupiter = ephem.Jupiter(now)
+        stars = ephem.constellation(jupiter)
+        star_planet = f'Сегодняшняя дата {now.strftime("%d-%m-%Y %H:%M")}.\nПланета Юпитер находится в созвездии {stars[1]}'
+        update.message.reply_text(star_planet)
+    elif context.args[0].lower() == 'венера':
+        logging.info('вызвана команда /planet Венера')
+        now = datetime.datetime.now()
+        venus = ephem.Venus(now)
+        stars = ephem.constellation(venus)
+        star_planet = f'Сегодняшняя дата {now.strftime("%d-%m-%Y %H:%M")}.\nПланета Венера находится в созвездии {stars[1]}'
+        update.message.reply_text(star_planet)      
+    else:
+        logging.info('вызвана команда неизвестная планета')
+        update.message.reply_text('Такой планеты нет в моём списке!')
 
 def main():
-    mybot = Updater("КЛЮЧ, КОТОРЫЙ НАМ ВЫДАЛ BotFather", request_kwargs=PROXY)
-    
+    mybot = Updater(settings.API_KEY, use_context=True, request_kwargs=PROXY)
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
-    dp.add_handler(MessageHandler(Filters.text, talk_to_me))
-    
+    dp.add_handler(CommandHandler("planet", planet))
+    logging.info("Бот стартовал")
     mybot.start_polling()
     mybot.idle()
-       
 
 if __name__ == "__main__":
     main()
